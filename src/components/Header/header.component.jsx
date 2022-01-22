@@ -1,26 +1,27 @@
 import React,{ useContext } from 'react'
 import { Link, useLocation, useHistory } from 'react-router-dom';
-import { Menu, Image, Button,Icon } from 'semantic-ui-react';
+import { Menu, Image, Button,Icon,Input } from 'semantic-ui-react';
 import logo from '../../assests/images/logo.svg';
 import  {Logout}  from '../../context/actions/auth/logout.action';
+import searchContacts from '../../context/actions/searchContacts/search-contacts.actions';
 import { GlobalContext } from '../../context/Provider';
 import  isAuthenticated  from '../../utils/isAuthenticated'
 
 const Header = () =>{
 
-    const { contactsDispatch:dispatch } = useContext(GlobalContext)
+    const { contactsDispatch } = useContext(GlobalContext)
     const history = useHistory();
     const location = useLocation();
     const { pathname } = location;
 
     const handleUserLogout = () =>{
-        Logout(history)(dispatch)
+        Logout(history)(contactsDispatch)
     }
 
     const onChange =  (e,{ value }) =>{
         const searchText = value.trim().replace(/" "/g,"")
 
-        searchContacts(searchText)(dispacth);
+        searchContacts(searchText)(contactsDispatch);
     };
 
     return (

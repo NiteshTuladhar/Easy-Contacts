@@ -88,6 +88,25 @@ const contacts=(state,action) => {
                     data: null
                 },
             }
+        
+        case ContactTypes.SEARCH_CONTACTS:
+            return{
+                contacts:{
+                    ...state.contacts,
+                    loading:false,
+                    isSearchActive:!!action.payload>0||false,
+                    foundContacts: state.contacts.contacts.filter((item)=>{
+                        return (
+                        item.first_name.toLowerCase().search((action.payload).toLowerCase()) !== -1 ||
+                        item.last_name.toLowerCase().search((action.payload).toLowerCase()) !== -1 ||
+                        item.phone_number.toLowerCase().search((action.payload).toLowerCase()) !== -1
+                        )
+                        
+                    })
+                    
+                }
+            }
+
 
         default:
             return state;

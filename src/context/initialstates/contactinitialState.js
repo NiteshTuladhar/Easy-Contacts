@@ -3,6 +3,8 @@ export default{
         loading: false,
         error:null,
         contacts:[],
+        isSearchActive:false,
+        foundContacts:[],
     },
 
     addContact:{

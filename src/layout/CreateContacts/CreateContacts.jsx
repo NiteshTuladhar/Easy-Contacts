@@ -10,8 +10,12 @@ function CreateContacts() {
 
     const [form, setForm] = useState({});
     const [tempfile, setTempFile] = useState();
+    const { contactState } = useContext(GlobalContext)
+    console.log(`contactState`, contactState)
     const { contactState:{addContact:{loading,data,error}},contactsDispatch } = useContext(GlobalContext)
     
+    console.log(`loading`, loading)
+
     const history = useHistory()
 
     const onChange = (e,{name,value})=>{

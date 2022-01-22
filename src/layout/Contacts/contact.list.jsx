@@ -4,8 +4,12 @@ import ImageThumbnail from '../../components/imageThumb/image-thubnail.component
 
 const ContactsListUI = ({ 
     state: {
-        contacts:{ loading,error,contacts }
+        contacts:{ loading,error,contacts,isSearchActive,foundContacts }
     }})=> {
+
+
+    const currentContacts = isSearchActive ? foundContacts : contacts   
+    
 
     return (
         <div>
@@ -32,11 +36,12 @@ const ContactsListUI = ({
                 </>
             )
             :(
-
+               
             <List>
                     {
-                     contacts.length>0 && 
-                        contacts.map((contact)=>(
+
+                     currentContacts.length>0?
+                        currentContacts.map((contact)=>(
                             <List.Item key={contact.id}>
                                 <List.Content floated='right'>
                                     <span>{contact.phone_number}</span> 
@@ -61,20 +66,30 @@ const ContactsListUI = ({
 
                             </List.Item>
                         ))
-
-                        
-                    }
-
-                    {
-                        contacts.length<=0 && 
-
+                        : 
+                       ( 
                         <Message>
                             <Message.Header>You have no contacts</Message.Header>
                             <p>
                             There is no list of contacts to show. Create a new contacts to make the list enable.
                             </p>
                         </Message>
+                        )
+                        
                     }
+
+                   {
+                       foundContacts?.length>0 &&
+                        (
+                            <Message>
+                            
+                            <p>
+                            No results found.
+                            </p>
+                        </Message>
+                        )
+
+                   }
             </List>
             )
         }
